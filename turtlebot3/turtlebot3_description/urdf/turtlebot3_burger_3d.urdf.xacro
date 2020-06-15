@@ -138,21 +138,53 @@
     <child link="imu_link"/>
     <origin xyz="0 0 0" rpy="0 0 0"/>
   </joint>
-  
-  <joint name="$VLP-16_base_scan_joint" type="fixed" >
-    <origin xyz="-0.032 0 0.172" rpy="0 0 0"/>
-    <parent link="base_link" />
-    <child link="$VLP-16"/>
+
+  <joint name="VLP_base_mount_joint" type="fixed">
+    <origin xyz="-0.032 0 0.142" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="VLP-16_base_link"/>
   </joint>
 
-  <link name="$VLP-16">
+  <link name="VLP-16_base_link">
+    <inertial>
+      <mass value="0.83"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="${(0.83 * (3.0*0.0516*0.0516 + 0.0717*0.0717)) / 12.0}" ixy="0" ixz="0"
+        iyy="${(0.83 * (3.0*0.0516*0.0516 + 0.0717*0.0717)) / 12.0}" iyz="0"
+        izz="${0.5 * 0.83 * (0.0516*0.0516)}"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="package://turtlebot3_description/meshes/vlp-16/VLP16_base_1.dae" />
+      </geometry>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="package://turtlebot3_description/meshes/vlp-16/VLP16_base_2.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.0516" length="0.0717"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <joint name="VLP-16_base_scan_joint" type="fixed" >
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="VLP-16_base_link" />
+    <child link="VLP-16"/>
+  </joint>
+
+  <link name="VLP-16">
     <inertial>
       <mass value="0.01"/>
       <origin xyz="0 0 0"/>
       <inertia ixx="1e-7" ixy="0" ixz="0" iyy="1e-7" iyz="0" izz="1e-7"/>
     </inertial>
     <visual>
-      <origin xyz="0 0 -0.0377" />
+      <origin xyz="0 0 0" />
       <geometry>
         <mesh filename="package://turtlebot3_description/meshes/vlp-16/VLP16_scan.dae" />
       </geometry>
